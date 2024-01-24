@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wander : MonoBehaviour
+public class Wander : SteeringBehavior
 {
-    // Start is called before the first frame update
-    void Start()
+    public Kinematic character;
+    float maxAcceleration = 1f;
+    float maxRotation = 10f;
+
+    public override SteeringOutput getSteering()
     {
-        
+        SteeringOutput result = new SteeringOutput();
+
+        result.linear = maxAcceleration * character.transform.forward;
+        result.angular = RandomBinomial() * maxRotation;
+
+        return result;
     }
 
-    // Update is called once per frame
-    void Update()
+    private float RandomBinomial()
     {
-        
+        return Random.value - Random.value;
     }
 }
+
